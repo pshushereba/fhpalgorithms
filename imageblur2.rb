@@ -9,7 +9,16 @@ class Image
 	end 
 
   def transform
-    return Image.new(@image)
+	one_index = []
+  	@image.each_with_index do |row, row_index|
+  		row.each_with_index do |pixel, col_index|
+  			if pixel == 1
+  				one_index.push(row_index, col_index)
+  			end
+  		end
+  	end
+	print one_index
+    #return Image.new(@image)
   end
 
 end
