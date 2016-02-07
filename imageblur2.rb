@@ -11,10 +11,10 @@ class Image
 	end 
 	
 	def blur(row_index,col_index)
-		@image[x-1][y] = 1
-		@image[x][y-1] = 1
-		@image[x][y+1] = 1
-		@image[x+1][y] = 1
+		@image[row_index-1][col_index] = 1
+		@image[row_index][col_index-1] = 1
+		[row_index][col_index+1] = 1
+		[row_index+1][col_index] = 1
 	end
 
 #First "1" in @image [1][1]
@@ -31,11 +31,10 @@ class Image
   		row.each_with_index do |pixel, col_index|
   			if pixel == 1
   				one_index.push([row_index, col_index])
-				#puts blur(row_index, col_index)
+				blur(row_index, col_index)
   			end
   		end
   	end
-	#print one_index
     return Image.new(@image)
   end
 
