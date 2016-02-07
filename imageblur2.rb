@@ -6,14 +6,23 @@ class Image
 	
 	def output_image
 		@image.each { |row| puts row.join }
-		#transform.each { |row_index, col_index| blur(row_index, col_index) }
+		transform.each { |row_index, col_index| blur(row_index, col_index) }
 	end 
 	
-#	def blur(x,y)
-#		@image[x][y] =
-#		[x][y-1]
-#		[x+1][y]
-#	end
+	def blur(row_index,col_index)
+		@image[row_index-1][col_index] = 1
+		@image[row_index][col_index-1] = 1
+		@image[row_index][col_index+1] = 1
+		@image[row_index+1][col_index] = 1
+	end
+
+#First "1" in @image [1][1]
+
+# Indicies that need to be changed for blur to be complete
+#@image[0][1]
+#@image[1][0]
+#@image[1][2]
+#@image[2][1]
 
   def transform
 	one_index = []
@@ -21,11 +30,12 @@ class Image
   		row.each_with_index do |pixel, col_index|
   			if pixel == 1
   				one_index.push([row_index, col_index])
+				#puts blur(row_index, col_index)
   			end
   		end
   	end
 	print one_index
-    #return Image.new(@image)
+    return Image.new(@image)
   end
 
 end
@@ -39,7 +49,7 @@ image = Image.new([
 #image.output_image
 
 afterImage = image.transform
-#afterImage.output_image
+afterImage.output_image
 
 # afterImage = Image.new([
 #   [0, 1, 0, 0],
