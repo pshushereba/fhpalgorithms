@@ -30,9 +30,10 @@ class Image
   	@image.each_with_index do |row, row_index|
   		row.each_with_index do |pixel, col_index|
   			if pixel == 1
-  				one_index.push([row_index, col_index])
+  				#one_index.push([row_index, col_index])
 				blur(row_index, col_index)
   			end
+			#blur(row_index, col_index)
   		end
   	end
     return Image.new(@image)
