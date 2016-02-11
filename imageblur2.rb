@@ -4,18 +4,38 @@ class Image
 		@image = image
 	end
 	
-	def output_image
-		@image.each { |row| puts row.join }
-		#puts blur(row_index, col_index)
-		#transform.each { |row_index, col_index| blur(row_index, col_index) }
-	end 
+	def transform
+		one_index = []
+	  	@image.each_with_index do |row, row_index|
+	  		row.each_with_index do |pixel, col_index|
+	  			if pixel == 1
+	  				one_index.push([row_index, col_index])
+	  			end
+		 	end
+	  	end
+			
+		one_index.each do |row_index, col_index|
+			blur(row_index,col_index)
+		end
+
+	    return Image.new(@image)
+	 end
 	
 	def blur(row_index,col_index)
+	
+	if col_index < @image.length
 		@image[row_index-1][col_index] = 1
 		@image[row_index][col_index-1] = 1
-		[row_index][col_index+1] = 1
-		[row_index+1][col_index] = 1
+		@image[row_index][col_index+1] = 1
+		@image[row_index+1][col_index] = 1
 	end
+	end
+	
+	def output_image
+		@image.each { |row| puts row.join }
+	end 
+
+end
 
 #First "1" in @image [1][1]
 
@@ -24,22 +44,6 @@ class Image
 #@image[1][0]
 #@image[1][2]
 #@image[2][1]
-
-  def transform
-	one_index = []
-  	@image.each_with_index do |row, row_index|
-  		row.each_with_index do |pixel, col_index|
-  			if pixel == 1
-  				#one_index.push([row_index, col_index])
-				blur(row_index, col_index)
-  			end
-			#blur(row_index, col_index)
-  		end
-  	end
-    return Image.new(@image)
-  end
-
-end
 
 image = Image.new([
   [0, 0, 0, 0],
