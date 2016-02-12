@@ -23,12 +23,24 @@ class Image
 	
 	def blur(row_index,col_index)
 	
-	if col_index < @image.length
-		@image[row_index-1][col_index] = 1
-		@image[row_index][col_index-1] = 1
-		@image[row_index][col_index+1] = 1
-		@image[row_index+1][col_index] = 1
+#		@image[row_index-1][col_index] = 1
+#		@image[row_index][col_index-1] = 1
+#		@image[row_index][col_index+1] = 1
+#		@image[row_index+1][col_index] = 1
+
+		update_cell(row_index+1,col_index,1)
+		update_cell(row_index,col_index+1,1)
+		update_cell(row_index,col_index-1,1)
+		update_cell(row_index-1,col_index,1)
 	end
+	
+	def update_cell(row_index, col_index, value)
+		return if !within?(@image, row_index) || !within?(@image[row_index],col_index)
+		@image[row_index][col_index]  = value
+	end
+	
+	def within?(array,index)
+		array.size > index && index >= 0
 	end
 	
 	def output_image
