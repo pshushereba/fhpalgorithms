@@ -4,6 +4,8 @@ class Image
 		@image = image
 	end
 	
+	#Iterate through @image input and identify which indices have a "1".
+	
 	def transform
 		one_index = []
 	  	@image.each_with_index do |row, row_index|
@@ -14,6 +16,8 @@ class Image
 		 	end
 	  	end
 			
+		# Iterate through array of "1" pixel locations and pass those values to the blur method.
+		
 		one_index.each do |row_index, col_index|
 			blur(row_index,col_index)
 		end
