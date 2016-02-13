@@ -25,12 +25,10 @@ class Image
 	    return Image.new(@image)
 	 end
 	
-	def blur(row_index,col_index)
+	# The blur method take the row_index and col_index as arguments and passes them to the 
+	# update_cell method along with a vaule to set the identified pixels to, causing the blur.
 	
-#		@image[row_index-1][col_index] = 1
-#		@image[row_index][col_index-1] = 1
-#		@image[row_index][col_index+1] = 1
-#		@image[row_index+1][col_index] = 1
+	def blur(row_index,col_index)
 
 		update_cell(row_index+1,col_index,1)
 		update_cell(row_index,col_index+1,1)
@@ -38,11 +36,15 @@ class Image
 		update_cell(row_index-1,col_index,1)
 	end
 	
+	# update_cell sets the values passed into it to "1", but only after checking to see if the 	# selected indices are within the bounds of the array.
+	
 	def update_cell(row_index, col_index, value)
 		return if !within?(@image, row_index) || !within?(@image[row_index],col_index)
-		@image[row_index][col_index]  = value
+		@image[row_index][col_index] = value
 	end
 	
+	# The within? method is used in conjunction with the update_cell method in order to make 
+	# sure that the indices being updated are within the bounds of the image input.
 	def within?(array,index)
 		array.size > index && index >= 0
 	end
