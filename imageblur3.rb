@@ -17,18 +17,20 @@ class Image
 	  	end
 			
 		# Iterate through array of "1" pixel locations and pass those values to the blur method.
-		
+		puts "What is the Manhattan Distance?"
+		n = gets.chomp.to_i
+		n.times do
 		one_index.each do |row_index, col_index|
-			blur(row_index,col_index)
+			update_cell(row_index,col_index,1)
 		end
-
+end
 	    return Image.new(@image)
 	 end
 	
 	# The blur method take the row_index and col_index as arguments and passes them to the 
 	# update_cell method along with a vaule to set the identified pixels to, causing the blur.
 	
-	def blur(row_index,col_index)
+	def blur(n)
 
 		update_cell(row_index+1,col_index,1)
 		update_cell(row_index,col_index+1,1)
