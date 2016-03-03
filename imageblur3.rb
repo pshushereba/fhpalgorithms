@@ -6,7 +6,7 @@ class Image
 	
 	#Iterate through @image input and identify which indices have a "1".
 	
-	def transform
+	def identify
 		one_index = []
 	  	@image.each_with_index do |row, row_index|
 	  		row.each_with_index do |pixel, col_index|
@@ -15,27 +15,31 @@ class Image
 	  			end
 		 	end
 	  	end
-			
-		# Iterate through array of "1" pixel locations and pass those values to the blur method.
-		puts "What is the Manhattan Distance?"
-		n = gets.chomp.to_i
-		n.times do
-		one_index.each do |row_index, col_index|
-			update_cell(row_index,col_index,1)
-		end
-end
-	    return Image.new(@image)
+			return one_index
 	 end
+	
+	def transform(one_index)
+	# Iterate through array of "1" pixel locations and pass those values to the update_cell method.
+	one_index.each do |row_index, col_index|
+		update_cell(row_index+1,col_index,1)
+		update_cell(row_index,col_index+1,1)
+		update_cell(row_index,col_index-1,1)
+		update_cell(row_index-1,col_index,1)
+	end
+    	return Image.new(@image)
+	end
 	
 	# The blur method take the row_index and col_index as arguments and passes them to the 
 	# update_cell method along with a vaule to set the identified pixels to, causing the blur.
 	
 	def blur(n)
-
-		update_cell(row_index+1,col_index,1)
-		update_cell(row_index,col_index+1,1)
-		update_cell(row_index,col_index-1,1)
-		update_cell(row_index-1,col_index,1)
+		n.times do
+			transform(one_index)
+		end
+#		update_cell(row_index+1,col_index,1)
+#		update_cell(row_index,col_index+1,1)
+#		update_cell(row_index,col_index-1,1)
+#		update_cell(row_index-1,col_index,1)
 	end
 	
 	# update_cell sets the values passed into it to "1", but only after checking to see if the 	# selected indices are within the bounds of the array.
@@ -49,12 +53,13 @@ end
 	# sure that the indices being updated are within the bounds of the image input.
 	def within?(array,index)
 		array.size > index && index >= 0
-	end
+	end1
 	
 	def output_image
 		@image.each { |row| puts row.join }
 	end 
 
+end
 end
 
 #First "1" in @image [1][1]
@@ -73,8 +78,8 @@ image = Image.new([
 ])
 #image.output_image
 
-afterImage = image.transform
-afterImage.output_image
+afterImage = image.identify
+afterImage.blur(2)
 
 # afterImage = Image.new([
 #   [0, 1, 0, 0],
