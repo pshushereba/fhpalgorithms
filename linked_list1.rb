@@ -38,14 +38,14 @@ class Stack
 
     # Push a value onto the stack
     def push(value)
-        # IMPLEMENT ME!
+        @data = LinkedListNode.new(value, @data)
     end
 
     # Pop an item off the stack.  
     # Remove the last item that was pushed onto the
     # stack and return the value to the user
     def pop
-        # I RETURN A VALUE
+       @data = @data.next_node
     end
 
 end
